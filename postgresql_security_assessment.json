@@ -1,0 +1,77 @@
+{
+  "repository": {
+    "url": "https://github.com/postgres/postgres",
+    "name": "postgres/postgres", 
+    "default_branch": "master",
+    "assessed_at": "2025-08-27T13:32:19Z",
+    "analysis_duration_seconds": 180,
+    "analysis_version": "1.0"
+  },
+  "security_analysis": {
+    "vulnerabilities": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "total": 0
+    },
+    "vulnerability_details": [],
+    "secrets": {
+      "verified_total": 0,
+      "critical_secrets": 0,
+      "high_secrets": 0,
+      "medium_secrets": 0
+    },
+    "supply_chain": {
+      "lockfiles_present": [],
+      "dependency_automation": false,
+      "signed_commits": 0,
+      "tags_count": 661,
+      "latest_tag": "REL_18_DEVEL"
+    }
+  },
+  "development_practices": {
+    "activity": {
+      "project_age_days": 10663,
+      "first_commit_date": "1996-07-09",
+      "commits_last_90d": 557,
+      "commits_last_30d": 186,
+      "contributors_last_180d": 32,
+      "contributors_last_90d": 22
+    },
+    "ci_testing": {
+      "ci_present": true,
+      "tests_detected": true,
+      "coverage_tracking": false
+    },
+    "governance": {
+      "security_md": true,
+      "codeowners": false,
+      "license_present": true,
+      "dependabot_config": false,
+      "mirror_repository": true
+    }
+  },
+  "scoring": {
+    "component_scores": {
+      "activity": 2,
+      "security": 2,
+      "dependencies": 1,
+      "ci_testing": 2,
+      "governance": 2,
+      "supply_chain": 2
+    },
+    "weighted_total": 22,
+    "max_possible": 24,
+    "percentage": 92,
+    "critical_failures": 0,
+    "vulnerability_age_concern": false,
+    "final_verdict": "REASONABLY_GOOD_FORM"
+  },
+  "recommendations": [
+    "Consider modernizing dependency management for C-based ecosystem",
+    "Maintain current excellent governance and security practices",
+    "Continue traditional but effective community-driven development model",
+    "Mirror repository model is acceptable for established projects"
+  ]
+}

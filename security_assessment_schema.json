@@ -1,0 +1,301 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Security Posture Assessment Report",
+  "description": "Standardized security posture assessment report for open source repositories",
+  "type": "object",
+  "required": ["repository", "security_analysis", "development_practices", "scoring"],
+  "properties": {
+    "repository": {
+      "type": "object",
+      "required": ["url", "name", "default_branch", "assessed_at", "analysis_version"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Full URL of the repository"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[^/]+/[^/]+$",
+          "description": "Repository name in owner/repo format"
+        },
+        "default_branch": {
+          "type": "string",
+          "description": "Default branch name (e.g., main, master)"
+        },
+        "assessed_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of assessment"
+        },
+        "analysis_duration_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Time taken to complete analysis"
+        },
+        "analysis_version": {
+          "type": "string",
+          "description": "Version of analysis methodology used"
+        }
+      }
+    },
+    "security_analysis": {
+      "type": "object",
+      "required": ["vulnerabilities", "secrets", "supply_chain"],
+      "properties": {
+        "vulnerabilities": {
+          "type": "object",
+          "required": ["critical", "high", "medium", "low", "total"],
+          "properties": {
+            "critical": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of critical severity vulnerabilities"
+            },
+            "high": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of high severity vulnerabilities"
+            },
+            "medium": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of medium severity vulnerabilities"
+            },
+            "low": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of low severity vulnerabilities"
+            },
+            "total": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Total number of vulnerabilities found"
+            }
+          }
+        },
+        "secrets": {
+          "type": "object",
+          "required": ["verified_total", "critical_secrets", "high_secrets", "medium_secrets"],
+          "properties": {
+            "verified_total": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Total number of verified secrets found"
+            },
+            "critical_secrets": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of critical secrets (AWS, GCP, GitHub tokens, private keys)"
+            },
+            "high_secrets": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of high-risk secrets (Slack, Twilio, etc.)"
+            },
+            "medium_secrets": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of medium-risk secrets"
+            }
+          }
+        },
+        "supply_chain": {
+          "type": "object",
+          "required": ["lockfiles_present", "dependency_automation"],
+          "properties": {
+            "lockfiles_present": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of dependency lockfiles found"
+            },
+            "dependency_automation": {
+              "type": "boolean",
+              "description": "Whether automated dependency updates are configured"
+            },
+            "signed_commits": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of signed commits in recent history"
+            },
+            "tags_count": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Total number of git tags"
+            },
+            "latest_tag": {
+              "type": "string",
+              "description": "Most recent git tag"
+            }
+          }
+        }
+      }
+    },
+    "development_practices": {
+      "type": "object",
+      "required": ["activity", "ci_testing", "governance"],
+      "properties": {
+        "activity": {
+          "type": "object",
+          "required": ["project_age_days", "commits_last_90d", "contributors_last_180d"],
+          "properties": {
+            "project_age_days": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Age of project in days since first commit"
+            },
+            "first_commit_date": {
+              "type": "string",
+              "format": "date",
+              "description": "Date of first commit"
+            },
+            "commits_last_90d": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of commits in last 90 days"
+            },
+            "commits_last_30d": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of commits in last 30 days"
+            },
+            "contributors_last_180d": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of unique contributors in last 180 days"
+            },
+            "contributors_last_90d": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of unique contributors in last 90 days"
+            }
+          }
+        },
+        "ci_testing": {
+          "type": "object",
+          "required": ["ci_present", "tests_detected"],
+          "properties": {
+            "ci_present": {
+              "type": "boolean",
+              "description": "Whether CI/CD workflows are present"
+            },
+            "tests_detected": {
+              "type": "boolean",
+              "description": "Whether test files are detected"
+            },
+            "coverage_tracking": {
+              "type": "boolean",
+              "description": "Whether code coverage tracking is configured"
+            }
+          }
+        },
+        "governance": {
+          "type": "object",
+          "required": ["security_md", "license_present"],
+          "properties": {
+            "security_md": {
+              "type": "boolean",
+              "description": "Whether SECURITY.md file is present"
+            },
+            "codeowners": {
+              "type": "boolean",
+              "description": "Whether CODEOWNERS file is present"
+            },
+            "license_present": {
+              "type": "boolean",
+              "description": "Whether LICENSE file is present"
+            },
+            "dependabot_config": {
+              "type": "boolean",
+              "description": "Whether Dependabot configuration is present"
+            }
+          }
+        }
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "required": ["component_scores", "weighted_total", "max_possible", "percentage", "final_verdict"],
+      "properties": {
+        "component_scores": {
+          "type": "object",
+          "required": ["activity", "security", "dependencies", "ci_testing", "governance", "supply_chain"],
+          "properties": {
+            "activity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Activity score (0-2)"
+            },
+            "security": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Security score (0-2)"
+            },
+            "dependencies": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Dependencies score (0-2)"
+            },
+            "ci_testing": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "CI/Testing score (0-2)"
+            },
+            "governance": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Governance score (0-2)"
+            },
+            "supply_chain": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Supply chain score (0-2)"
+            }
+          }
+        },
+        "weighted_total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 24,
+          "description": "Total weighted score"
+        },
+        "max_possible": {
+          "type": "integer",
+          "enum": [24],
+          "description": "Maximum possible weighted score"
+        },
+        "percentage": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Score as percentage"
+        },
+        "critical_failures": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of critical failure conditions met"
+        },
+        "final_verdict": {
+          "type": "string",
+          "enum": ["REASONABLE", "QUESTIONABLE", "UNSAFE"],
+          "description": "Final security posture classification"
+        }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of recommended actions to improve security posture"
+    }
+  }
+}

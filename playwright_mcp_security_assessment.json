@@ -1,0 +1,101 @@
+{
+  "repository": {
+    "url": "https://github.com/microsoft/playwright-mcp",
+    "name": "microsoft/playwright-mcp",
+    "default_branch": "main",
+    "assessed_at": "2025-08-27T12:55:51Z",
+    "analysis_duration_seconds": 420,
+    "analysis_version": "1.0"
+  },
+  "security_analysis": {
+    "vulnerabilities": {
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 0,
+      "total": 2
+    },
+    "vulnerability_details": [
+      {
+        "id": "GHSA-67mh-4wv8-2f99",
+        "package": "esbuild",
+        "affected_versions": ["0.20.2", "0.21.5"],
+        "severity": "MODERATE",
+        "cvss_score": "5.3",
+        "summary": "esbuild enables any website to send any requests to the development server and read the response",
+        "fixed_version": "0.25.0"
+      },
+      {
+        "id": "GHSA-pp7p-q8fx-2968",
+        "package": "vite-plugin-static-copy",
+        "affected_versions": ["3.1.1"],
+        "severity": "MODERATE", 
+        "cvss_score": "6.0",
+        "summary": "vite-plugin-static-copy files not included in src are possible to access with a crafted request",
+        "fixed_version": "3.1.2"
+      }
+    ],
+    "secrets": {
+      "verified_total": 0,
+      "critical_secrets": 0,
+      "high_secrets": 0,
+      "medium_secrets": 0
+    },
+    "supply_chain": {
+      "lockfiles_present": ["package-lock.json", "extension/package-lock.json"],
+      "dependency_automation": false,
+      "signed_commits": 0,
+      "tags_count": 27,
+      "latest_tag": "v0.0.35"
+    }
+  },
+  "development_practices": {
+    "activity": {
+      "project_age_days": 159,
+      "first_commit_date": "2025-03-21",
+      "commits_last_90d": 155,
+      "commits_last_30d": 52,
+      "contributors_last_180d": 39,
+      "contributors_last_90d": 28
+    },
+    "ci_testing": {
+      "ci_present": true,
+      "tests_detected": true,
+      "coverage_tracking": false
+    },
+    "governance": {
+      "security_md": true,
+      "codeowners": false,
+      "license_present": true,
+      "dependabot_config": false
+    }
+  },
+  "scoring": {
+    "component_scores": {
+      "activity": 2,
+      "security": 1,
+      "dependencies": 1,
+      "ci_testing": 1,
+      "governance": 1,
+      "supply_chain": 1
+    },
+    "weighted_total": 16,
+    "max_possible": 24,
+    "percentage": 67,
+    "critical_failures": 0,
+    "vulnerability_age_concern": true,
+    "final_verdict": "QUESTIONABLE_FORM"
+  },
+  "recommendations": [
+    "Implement dependency management automation (Dependabot or Renovate)",
+    "Add CODEOWNERS file for code review governance",
+    "Consider implementing commit signing for supply chain security",
+    "Add code coverage tracking and reporting",
+    "Review and enhance permission model documentation for browser automation capabilities",
+    "Implement input sanitization for the browser_evaluate function to prevent code injection",
+    "Add rate limiting for browser automation operations",
+    "Consider implementing session isolation between different MCP clients",
+    "Add security headers and content security policies for web interfaces",
+    "Implement audit logging for all browser automation operations"
+  ]
+}

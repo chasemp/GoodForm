@@ -2,7 +2,7 @@
 
 ## Overview
 
-You are an AI security analyst tasked with evaluating the security posture of open source repositories. Your analysis will result in a standardized report and a final classification of **REASONABLE**, **QUESTIONABLE**, or **UNSAFE**.
+You are an AI security analyst tasked with evaluating the security posture of open source repositories. Your analysis will result in a standardized report and a final classification of **REASONABLY GOOD FORM**, **QUESTIONABLE FORM**, or **DANGEROUS FORM, ARR**.
 
 ## Prerequisites
 
@@ -55,9 +55,11 @@ UNFIXED_CRITICAL_HIGH=$(jq '[.. | objects? | select(has("severity")) | select(.s
 ```
 
 **OSV Analysis Scoring**:
-- **UNSAFE**: Any unfixed CRITICAL vulnerabilities OR ≥5 unfixed HIGH vulnerabilities
-- **QUESTIONABLE**: 1-4 unfixed HIGH vulnerabilities OR ≥10 unfixed MEDIUM vulnerabilities  
-- **REASONABLE**: Only LOW/MEDIUM vulnerabilities with available fixes
+- **DANGEROUS FORM, ARR**: Any unfixed CRITICAL vulnerabilities OR ≥5 unfixed HIGH vulnerabilities
+- **QUESTIONABLE FORM**: 1-4 unfixed HIGH vulnerabilities OR unfixed CRITICAL/HIGH vulnerabilities older than 90 days
+- **REASONABLY GOOD FORM**: Only LOW/MEDIUM vulnerabilities OR recent vulnerabilities with available fixes
+
+**Note**: Medium severity vulnerabilities alone do not warrant QUESTIONABLE FORM classification unless they are part of a broader pattern of poor security maintenance.
 
 #### 2.2 Secret Detection Analysis
 
@@ -77,9 +79,9 @@ MEDIUM_SECRETS=$(jq -r 'select(.Verified == true) | select(.DetectorName | test(
 ```
 
 **Secret Analysis Scoring**:
-- **UNSAFE**: Any verified CRITICAL secrets (AWS, GCP, GitHub tokens, Private Keys)
-- **QUESTIONABLE**: Any verified HIGH secrets (Slack, Twilio, etc.) OR ≥3 verified MEDIUM secrets
-- **REASONABLE**: Only LOW-risk verified secrets OR no verified secrets
+- **DANGEROUS FORM, ARR**: Any verified CRITICAL secrets (AWS, GCP, GitHub tokens, Private Keys)
+- **QUESTIONABLE FORM**: Any verified HIGH secrets (Slack, Twilio, etc.) OR ≥3 verified MEDIUM secrets
+- **REASONABLY GOOD FORM**: Only LOW-risk verified secrets OR no verified secrets
 
 ### Phase 3: Repository Health and Maturity Analysis
 
@@ -328,24 +330,30 @@ Generate a comprehensive JSON report:
 
 ## Key Decision Points
 
-### Automatic UNSAFE Classification
+### Automatic DANGEROUS FORM, ARR Classification
 - Any unfixed CRITICAL vulnerabilities
 - Any verified critical secrets (AWS, GCP, GitHub tokens, private keys)
 - ≥2 critical failure conditions
 - Project age < 90 days with no activity
 
-### Automatic REASONABLE Classification  
+### Automatic REASONABLY GOOD FORM Classification  
 - No critical failures
 - Weighted score ≥70%
 - Active development (≥10 commits/90d, ≥3 contributors/180d)
 - CI success rate ≥80%
 - Comprehensive security measures
 
-### QUESTIONABLE Classification
-- Everything between UNSAFE and REASONABLE
+### QUESTIONABLE FORM Classification
+- Everything between DANGEROUS FORM, ARR and REASONABLY GOOD FORM
 - 1 critical failure condition
 - Weighted score 50-69%
 - Partial security measures
+- Unfixed HIGH/CRITICAL vulnerabilities older than 90 days
+
+### Vulnerability Age Considerations
+- **Recent vulnerabilities** (< 90 days): More forgiving classification, especially for actively maintained projects
+- **Aged vulnerabilities** (≥ 90 days): Indicates poor security maintenance, escalates classification severity
+- **Medium severity**: Should not trigger QUESTIONABLE FORM unless part of broader security maintenance issues
 
 ## Implementation Notes
 

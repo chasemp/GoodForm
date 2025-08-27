@@ -285,7 +285,7 @@
         },
         "final_verdict": {
           "type": "string",
-          "enum": ["REASONABLE", "QUESTIONABLE", "UNSAFE"],
+          "enum": ["REASONABLY_GOOD_FORM", "QUESTIONABLE_FORM", "DANGEROUS_FORM_ARR"],
           "description": "Final security posture classification"
         }
       }

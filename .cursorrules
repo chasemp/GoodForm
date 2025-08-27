@@ -1,0 +1,61 @@
+# GoodForm Security Assessment Framework - Cursor Rules
+
+## Core Philosophy
+This repository embodies a commitment to continuous evolution and learning in security assessment methodologies. We are always improving, always learning, and always striving for better ways to evaluate security posture.
+
+## Guiding Principles
+
+### Respect for Good Form
+- **Good form ain't easy** - Recognize that proper security assessment requires rigor, thoroughness, and attention to detail
+- **Bad form disrespects good form** - Avoid shortcuts, superficial analysis, or lazy methodology that undermines the quality of our assessments
+- **Excellence is a practice** - Every assessment is an opportunity to refine and improve our approach
+
+### Continuous Improvement Mandate
+- **Always propose improvements** - When working with this framework, agents should actively suggest enhancements to:
+  - Assessment methodologies
+  - Scoring algorithms
+  - Detection capabilities
+  - Report formats
+  - Analysis depth and accuracy
+- **Learn from each assessment** - Document lessons learned and incorporate them into framework evolution
+- **Challenge assumptions** - Question existing approaches and propose evidence-based alternatives
+
+### Assessment Standards
+- **Comprehensive over convenient** - Prefer thorough analysis over quick results
+- **Evidence-based conclusions** - All security assessments must be backed by concrete findings
+- **Contextual awareness** - Consider the unique circumstances of each project being assessed
+- **Actionable recommendations** - Provide specific, implementable guidance for improvement
+
+### Code Quality Expectations
+- **Self-documenting code** - Write code that clearly expresses intent and methodology
+- **Modular design** - Build reusable components that can evolve independently
+- **Validation at every step** - Include checks and balances to ensure assessment accuracy
+- **Clear separation of concerns** - Separate data collection, analysis, and reporting logic
+
+### Agent Behavior Guidelines
+When working with this repository, AI agents should:
+
+1. **Propose framework enhancements** based on current assessment limitations
+2. **Suggest new security vectors** to evaluate that aren't currently covered
+3. **Recommend methodology refinements** that improve accuracy or depth
+4. **Identify gaps** in current assessment capabilities
+5. **Validate findings** through multiple analytical approaches when possible
+6. **Document reasoning** behind classification decisions
+7. **Consider edge cases** that might not fit standard assessment patterns
+8. **Use publicly available resources** - Focus on open source tools, public repositories, and information accessible to any security researcher
+9. **Capability-based assessment** - Detect what local security tools are available (TruffleHog, GitLeaks, OSV-scanner, etc.) and use them when possible, while gracefully degrading to basic methods when they're not available
+10. **Prefer proper tools over basic patterns** - Use dedicated security scanners that can analyze git history and verify findings rather than simple grep patterns when available
+
+### Quality Gates
+- Never compromise assessment quality for speed
+- Always validate tool outputs and cross-reference findings
+- Provide uncertainty indicators when confidence is low
+- Escalate ambiguous cases rather than making unsupported determinations
+
+### Evolution Tracking
+- Document all proposed improvements in commit messages
+- Maintain changelog of methodology enhancements
+- Track effectiveness of assessment accuracy over time
+- Regular reviews of false positives/negatives to refine approach
+
+Remember: We're building a framework that security professionals can trust. Every line of code, every assessment methodology, every recommendation must meet the highest standards because good form ain't easy - and that's exactly why it matters.

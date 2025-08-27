@@ -104,12 +104,98 @@ The script will generate a JSON report following the standardized schema. Key fi
 
 ## Step 3: Critical Risk Assessment Priorities
 
+### 3.0 Protocol Compliance and Emerging Technology Assessment Framework
+
+**Universal Principle: Examine Implementation, Don't Assume Risk**
+
+Before classifying any emerging technology as unsafe, perform actual technical validation. Fear of new protocols should never override proper technical assessment.
+
+**General Protocol Validation Methodology:**
+
+1. **Schema/Validation Analysis**: 
+   - Count validation patterns in codebase
+   - Examine input sanitization approaches
+   - Check for type safety and boundary enforcement
+
+2. **Permission/Security Model**:
+   - Look for explicit consent mechanisms  
+   - Verify privilege separation and access controls
+   - Check for capability-based restrictions
+
+3. **Architecture Quality**:
+   - Assess separation of concerns
+   - Examine error handling and logging
+   - Verify clean interfaces and modularity
+
+### 3.1 AI Tools and MCP Assessment Framework
+
+**Model Context Protocol (MCP) Evaluation Criteria:**
+
+MCP implementations require nuanced evaluation rather than blanket rejection. Apply the general protocol validation methodology with MCP-specific checks:
+
+#### MCP Protocol Compliance Assessment:
+
+**CRITICAL**: Always examine actual implementation before making judgments. Look, don't assume!
+
+**Technical Validation Methodology:**
+1. **Input Validation Analysis**:
+   - Count schema validations: `grep -r "z\." src/ | wc -l` (for Zod)
+   - Examine validation patterns: Look for `z.object()`, `z.string()`, etc.
+   - Check for input sanitization and type checking
+   - Verify required vs optional field handling
+
+2. **Permission Model Examination**:
+   - Search for permission requests: `grep -r "permission\|consent\|element.*description" src/`
+   - Verify explicit user consent patterns
+   - Check for capability-based access controls
+   - Look for privilege escalation protections
+
+3. **Architecture Analysis**:
+   - Examine tool definitions: `find src/tools -name "*.ts" -exec basename {} \;`
+   - Check separation of concerns and modularity
+   - Verify proper TypeScript usage and type safety
+   - Look for clean interfaces and error boundaries
+
+4. **Security Boundary Assessment**:
+   - Verify server vs client separation (MCP servers shouldn't process prompts directly)
+   - Check for sandboxing mechanisms
+   - Examine capability scoping and restrictions
+   - Look for proper error handling and logging
+
+#### Prompt Injection Vulnerability Assessment:
+
+**Examination Commands for Common Patterns:**
+```bash
+# Look for direct prompt processing (dangerous in MCP servers)
+grep -r "prompt\|llm\|ai.*call\|openai\|anthropic" src/ --include="*.ts" --include="*.js"
+
+# Check input validation patterns
+grep -r "input\|query\|command.*validate\|sanitize" src/
+
+# Examine user input handling
+grep -r "params\|args.*string\|user.*input" src/
+```
+
+**Assessment Criteria:**
+1. **Direct Injection**: Test for unescaped user input passed to AI models
+2. **Indirect Injection**: Check for data sources that could contain malicious prompts  
+3. **Tool Chaining**: Evaluate if tools can be chained maliciously
+4. **Context Isolation**: Verify proper isolation between different tool contexts
+5. **Input Sanitization**: Confirm all user inputs go through validation layers
+
+#### MCP Scoring Methodology:
+- **REASONABLE**: Well-implemented MCP server with proper validation, permissions, and no prompt injection vectors
+- **QUESTIONABLE**: MCP implementation with minor issues or experimental features but no critical vulnerabilities  
+- **UNSAFE**: MCP server with prompt injection vulnerabilities, improper validation, or dangerous tool combinations
+
+**Remember**: Like Smee's good form, a well-implemented MCP server that follows the protocol properly deserves recognition, not automatic condemnation. Always examine the actual implementation - count the validations, check the patterns, verify the architecture. Don't let fear of new technology override proper technical assessment!
+
 ### 3.1 Immediate UNSAFE Conditions (Override All Other Scoring):
-1. **MCP Detection**: Model Context Protocol implementation = Automatic UNSAFE
-2. **Critical Vulnerabilities**: Any CVE score ≥9.0 = Automatic UNSAFE  
-3. **Verified Secrets**: Any verified API keys/tokens = Automatic UNSAFE
-4. **Code Obfuscation**: Malicious patterns detected = Automatic UNSAFE
-5. **Online Security Incidents**: Evidence of past compromises = Automatic UNSAFE
+1. **Critical Vulnerabilities**: Any CVE score ≥9.0 = Automatic UNSAFE  
+2. **Verified Secrets**: Any verified API keys/tokens = Automatic UNSAFE
+3. **Code Obfuscation**: Malicious patterns detected = Automatic UNSAFE
+4. **Online Security Incidents**: Evidence of past compromises = Automatic UNSAFE
+5. **Non-Compliant MCP Implementation**: MCP servers with prompt injection vulnerabilities or protocol violations = Automatic UNSAFE
 
 ### 3.2 Validate the Assessment
 Review the automated verdict against these criteria:

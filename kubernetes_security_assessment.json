@@ -1,0 +1,90 @@
+{
+  "repository": {
+    "url": "https://github.com/kubernetes/kubernetes",
+    "name": "kubernetes/kubernetes",
+    "default_branch": "master",
+    "assessed_at": "2025-08-27T13:19:13Z",
+    "analysis_duration_seconds": 720,
+    "analysis_version": "1.0"
+  },
+  "security_analysis": {
+    "vulnerabilities": {
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 0,
+      "total": 1
+    },
+    "vulnerability_details": [
+      {
+        "id": "GO-2025-3563",
+        "package": "stdlib",
+        "affected_versions": ["1.24.0"],
+        "severity": "MEDIUM",
+        "cvss_score": "N/A",
+        "summary": "Go standard library vulnerability",
+        "aliases": ["CVE-2025-22871"],
+        "published": "2025-04-08",
+        "age_days": 141
+      }
+    ],
+    "secrets": {
+      "verified_total": 0,
+      "critical_secrets": 0,
+      "high_secrets": 0,
+      "medium_secrets": 0
+    },
+    "supply_chain": {
+      "lockfiles_present": ["go.mod", "go.sum", "go.work", "go.work.sum"],
+      "dependency_automation": true,
+      "signed_commits": 0,
+      "tags_count": 755,
+      "latest_tag": "v1.33.4"
+    }
+  },
+  "development_practices": {
+    "activity": {
+      "project_age_days": 4113,
+      "first_commit_date": "2014-06-06",
+      "commits_last_90d": 1668,
+      "commits_last_30d": 556,
+      "contributors_last_180d": 315,
+      "contributors_last_90d": 220
+    },
+    "ci_testing": {
+      "ci_present": true,
+      "tests_detected": true,
+      "coverage_tracking": true
+    },
+    "governance": {
+      "security_md": true,
+      "codeowners": true,
+      "license_present": true,
+      "dependabot_config": false,
+      "security_contacts": true,
+      "cncf_governance": true
+    }
+  },
+  "scoring": {
+    "component_scores": {
+      "activity": 2,
+      "security": 2,
+      "dependencies": 2,
+      "ci_testing": 2,
+      "governance": 2,
+      "supply_chain": 2
+    },
+    "weighted_total": 24,
+    "max_possible": 24,
+    "percentage": 100,
+    "critical_failures": 0,
+    "vulnerability_age_concern": false,
+    "final_verdict": "REASONABLY_GOOD_FORM"
+  },
+  "recommendations": [
+    "Consider implementing commit signing for enhanced supply chain security",
+    "Continue monitoring Go standard library updates for security patches",
+    "Maintain current excellent governance and security practices",
+    "Consider formal SBOM generation for releases"
+  ]
+}
